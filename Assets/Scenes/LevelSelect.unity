@@ -821,6 +821,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Button (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2832838828519941990, guid: 8dddfc3791d26e743902dcf4b0bb61a0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967066347879238836, guid: 8dddfc3791d26e743902dcf4b0bb61a0,
+        type: 3}
+      propertyPath: m_Text
+      value: 1-3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dddfc3791d26e743902dcf4b0bb61a0, type: 3}
 --- !u!1001 &447470016
