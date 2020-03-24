@@ -51,3 +51,4 @@ MonoBehaviour:
   purpleMaterial: {fileID: 2100000, guid: 1139579cba96d5e4cacc5d3b739fff1c, type: 2}
   cyanMaterial: {fileID: 2100000, guid: 64602a246b8dafa4d9f26a211807cf05, type: 2}
   staticMaterial: {fileID: 2100000, guid: a4e705bce5f956d4a8386d927fcdb599, type: 2}
+  purpleBouncy: {fileID: 6200000, guid: a82a3c523a96288459c443365fe76403, type: 2}
