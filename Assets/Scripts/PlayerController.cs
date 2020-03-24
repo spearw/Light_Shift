@@ -32,9 +32,15 @@ public class PlayerController : MonoBehaviour
 
     void throwItem(){
         Rigidbody2D rb = carriedItem.GetComponent<Rigidbody2D>();
-
         isCarrying = false;
         rb.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
+        rb.isKinematic = false;
+        carriedItem = null;
+    }
+    void dropItem(){
+        Rigidbody2D rb = carriedItem.GetComponent<Rigidbody2D>();
+        isCarrying = false;
+        rb.velocity += new Vector2(transform.forward.z * 8, 2 * throwAngle);
         rb.isKinematic = false;
         carriedItem = null;
     }
@@ -97,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.S) && !isCrouching){
             if(isCarrying && carriedItem){
-                throwItem();
+                dropItem();
             }
             crouch();
         }
