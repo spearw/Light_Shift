@@ -28,8 +28,8 @@ public class GameController : MonoBehaviour
                     {
                         {"layer", 10},
                         {"pickup?", 1},
-                        {"mass", 1},
-                        {"gravity", -0.5f},
+                        {"mass", 35},
+                        {"gravity", -0.6f},
                         {"drag", 0.1f}
                     };
     IDictionary<string, float> greenBlockDict = new Dictionary<string, float>()
