@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
 
+    public Transform holdPoint;
     public float throwStrength;
     public float throwAngle;
 
@@ -33,21 +34,15 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = carriedItem.GetComponent<Rigidbody2D>();
 
         isCarrying = false;
-        Debug.Log("Throwing" + carriedItem);
-        carriedItem.transform.SetParent(null);
-        rb.isKinematic = false;
         rb.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
+        rb.isKinematic = false;
         carriedItem = null;
     }
     void pickUpItem(){
         isCarrying = true;
         Debug.Log("Picking up" + interactableObject);
         carriedItem = interactableObject;
-        carriedItem.transform.SetParent(gameObject.transform);
         float offset = 1f + carriedItem.transform.localScale.y * 0.5f;
-        Debug.Log("Offset = " + offset);
-        carriedItem.transform.position = new Vector3(0f, offset, 0f) + gameObject.transform.position;
-        carriedItem.transform.localRotation = Quaternion.Euler(new Vector3(0,0,0));
         carriedItem.GetComponent<Rigidbody2D>().isKinematic = true;
     }
     void crouch(){
@@ -121,6 +116,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (carriedItem != null){
+            carriedItem.transform.position = holdPoint.position;
+        }
 
     }
     void OnTriggerStay2D (Collider2D other) {
