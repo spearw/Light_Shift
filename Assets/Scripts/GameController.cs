@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
 
     public Material whiteMaterial;
+    public Material grayMaterial;
     public Material blueMaterial;
     public Material redMaterial;
     public Material yellowMaterial;
@@ -77,6 +78,9 @@ public class GameController : MonoBehaviour
     private GameObject[] blueBlocks;
     private GameObject[] greenBlocks;
     private GameObject[] redBlocks;
+    private GameObject[] yellowBlocks;
+    private GameObject[] cyanBlocks;
+    private GameObject[] purpleBlocks;
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +89,9 @@ public class GameController : MonoBehaviour
         blueBlocks = GameObject.FindGameObjectsWithTag("BlueBlockChild");
         greenBlocks = GameObject.FindGameObjectsWithTag("GreenBlockChild");
         redBlocks = GameObject.FindGameObjectsWithTag("RedBlockChild");
+        yellowBlocks = GameObject.FindGameObjectsWithTag("YellowBlockChild");
+        cyanBlocks = GameObject.FindGameObjectsWithTag("CyanBlockChild");
+        purpleBlocks = GameObject.FindGameObjectsWithTag("PurpleBlockChild");
     }
 
     void shift(GameObject[] blocks, IDictionary<string, float> blockBlueprint, Material newMaterial, PhysicsMaterial2D physicsMaterial = null){
@@ -122,15 +129,18 @@ public class GameController : MonoBehaviour
 
             //white to red
             shift(whiteBlocks, redBlockDict, redMaterial);
-
             //blue to purple
             shift(blueBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
-
             //green to yellow
             shift(greenBlocks, yellowBlockDict, yellowMaterial);
-            
             //red to red
             shift(redBlocks, redBlockDict, redMaterial);
+            //cyan to gray
+            shift(cyanBlocks, standardBlockDict, grayMaterial);
+            //purple to purple
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            //yellow to yellow
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
         }
         //Green shift
         if(Input.GetKeyDown(KeyCode.Alpha2)){
@@ -140,15 +150,18 @@ public class GameController : MonoBehaviour
 
             //white to green
             shift(whiteBlocks, greenBlockDict, greenMaterial);
-            
             //red to yellow
             shift(redBlocks, yellowBlockDict, yellowMaterial);
-            
             //blue to cyan
             shift(blueBlocks, cyanBlockDict, cyanMaterial);
-
             //green to green
             shift(greenBlocks, greenBlockDict, greenMaterial);
+            //purple to gray
+            shift(purpleBlocks, standardBlockDict, grayMaterial);
+            //yellow to yellow
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
+            //cyan to cyan
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
         }
         //Blue Shift
         if(Input.GetKeyDown(KeyCode.Alpha3)){
@@ -158,15 +171,18 @@ public class GameController : MonoBehaviour
 
             //white to blue
             shift(whiteBlocks, blueBlockDict, blueMaterial);
-            
             //red to purple
             shift(redBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
-
             //green to cyan
             shift(greenBlocks, cyanBlockDict, cyanMaterial);
-
             //blue to blue
             shift(blueBlocks, blueBlockDict, blueMaterial);
+            //yellow to gray
+            shift(yellowBlocks, standardBlockDict, grayMaterial);
+            //cyan to cyan
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
+            //purple to purple
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
         }
         //Generic unshift 
         if(Input.GetKeyDown(KeyCode.LeftShift)){
@@ -175,12 +191,12 @@ public class GameController : MonoBehaviour
             Camera.main.backgroundColor = normalBackground;
 
             shift(whiteBlocks, standardBlockDict, whiteMaterial);
-            
             shift(redBlocks, redBlockDict, redMaterial);
-            
             shift(blueBlocks, blueBlockDict, blueMaterial);
-
             shift(greenBlocks, greenBlockDict, greenMaterial);
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
         }
     }
 }

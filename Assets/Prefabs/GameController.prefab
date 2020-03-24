@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whiteMaterial: {fileID: 2100000, guid: b876f4ef79437904f9866f2738055c8c, type: 2}
+  grayMaterial: {fileID: 2100000, guid: a4e705bce5f956d4a8386d927fcdb599, type: 2}
   blueMaterial: {fileID: 2100000, guid: 1e34c17df90b8ef428624279853740e0, type: 2}
   redMaterial: {fileID: 2100000, guid: 70a9e7a2ce5e8a040b8bcd78f422c243, type: 2}
   yellowMaterial: {fileID: 2100000, guid: 7bf865b92c92de54d93e0124c56a2ad4, type: 2}
