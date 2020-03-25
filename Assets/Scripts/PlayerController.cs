@@ -34,22 +34,17 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
         rbOther.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
-        rbOther.isKinematic = false;
         carriedItem = null;
     }
     void dropItem(){
         Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
         rbOther.velocity += new Vector2(transform.forward.z * 8, 2 * throwAngle);
-        rbOther.isKinematic = false;
         carriedItem = null;
     }
     void pickUpItem(){
         isCarrying = true;
-        Debug.Log("Picking up" + interactableObject);
         carriedItem = interactableObject;
-        float offset = 1f + carriedItem.transform.localScale.y * 0.5f;
-        carriedItem.GetComponent<Rigidbody2D>().isKinematic = true;
     }
     void crouch(){
         isCrouching = true;
@@ -81,7 +76,7 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
 
-        //Jump mechanics
+        //Jump
         if(isGrounded == true && Input.GetButtonDown("Jump")){
             GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
         }
@@ -91,7 +86,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-        //Crouch mechanics
+        //Crouch
         if(Input.GetKeyDown(KeyCode.S) && !isCrouching){
             if(isCarrying && carriedItem){
                 dropItem();
@@ -103,6 +98,7 @@ public class PlayerController : MonoBehaviour
             stand();
         }
 
+        //Grab
         if (Input.GetKeyDown(KeyCode.E)) {
 
             if(!isCarrying && interactableObject && !isCrouching) {
@@ -114,6 +110,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (carriedItem != null){
+            carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             carriedItem.transform.position = holdPoint.position;
         }
 

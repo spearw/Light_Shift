@@ -220,8 +220,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   holdPoint: {fileID: 400545355}
-  throwStrength: 14
-  throwAngle: 0.8
+  throwStrength: 16
+  throwAngle: 1.2
   jumpVelocity: 18
   fallMultiplier: 5
   lowJumpMultiplier: 6
