@@ -223,7 +223,9 @@ MonoBehaviour:
   holdPoint: {fileID: 400545355}
   throwStrength: 14
   throwAngle: 0.8
-  jumpTime: 0.3
+  jumpVelocity: 22
+  fallMultiplier: 5
+  lowJumpMultiplier: 10
 --- !u!1 &2813430747126220113
 GameObject:
   m_ObjectHideFlags: 0

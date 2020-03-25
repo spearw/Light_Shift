@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rigidBody;
+    private Rigidbody2D rb;
     public float speed;
-    public float jumpForce;
     private float moveInput;
 
     private bool isGrounded;
@@ -18,30 +17,31 @@ public class PlayerController : MonoBehaviour
     public float throwStrength;
     public float throwAngle;
 
-    private float jumpTimeCounter;
-    public float jumpTime;
-    private bool isJumping;
+    [Range(10,30)]
+    public float jumpVelocity;
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
+
     private bool isCrouching;
     private bool isCarrying;
     public static GameObject interactableObject;
     public static GameObject carriedItem;
-    void Start(){
-        rigidBody = GetComponent<Rigidbody2D>();
-        Debug.Log("Starting...");
+    void Awake(){
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void throwItem(){
-        Rigidbody2D rb = carriedItem.GetComponent<Rigidbody2D>();
+        Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
-        rb.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
-        rb.isKinematic = false;
+        rbOther.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
+        rbOther.isKinematic = false;
         carriedItem = null;
     }
     void dropItem(){
-        Rigidbody2D rb = carriedItem.GetComponent<Rigidbody2D>();
+        Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
-        rb.velocity += new Vector2(transform.forward.z * 8, 2 * throwAngle);
-        rb.isKinematic = false;
+        rbOther.velocity += new Vector2(transform.forward.z * 8, 2 * throwAngle);
+        rbOther.isKinematic = false;
         carriedItem = null;
     }
     void pickUpItem(){
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        rigidBody.velocity = new Vector2(moveInput * speed, rigidBody.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
     }
     void Update(){
 
@@ -81,26 +81,17 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
 
-        if(isGrounded == true && Input.GetKeyDown(KeyCode.Space)){
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rigidBody.velocity = Vector2.up * jumpForce;
+        //Jump mechanics
+        if(isGrounded == true && Input.GetButtonDown("Jump")){
+            GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+        }
+        if(rb.velocity.y < 0) {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        } else if (rb.velocity.y > 0 && !Input.GetButton("Jump")){
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-        if(Input.GetKey(KeyCode.Space) && isJumping){
-            if(jumpTimeCounter > 0){
-                rigidBody.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else {
-                isJumping = false;
-            }
-        }
-        
-        if(Input.GetKeyUp(KeyCode.Space)){
-            isJumping = false;
-        }
-
+        //Crouch mechanics
         if(Input.GetKeyDown(KeyCode.S) && !isCrouching){
             if(isCarrying && carriedItem){
                 dropItem();
