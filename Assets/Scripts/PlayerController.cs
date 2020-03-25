@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float speed;
+    private float speed = 0;
+    [Range(5, 15)]
+    public float maxSpeed = 10;
+    public float acceleration = 10;
+    public float deceleration = 10; 
     private float moveInput;
 
     private bool isGrounded;
@@ -59,11 +63,31 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2 (1f, 2f);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        moveInput  = Input.GetAxisRaw("Horizontal");
+        //moving right
+        if ((moveInput > 0)&&(speed < maxSpeed)){
+            Debug.Log("right");
+            speed = speed + acceleration * Time.deltaTime;
+        } //moving left
+        else if ((moveInput < 0)&&(speed > -maxSpeed)){
+            Debug.Log("left");
+            speed = speed - acceleration * Time.deltaTime;
+        }
+        else
+        {
+            if(speed > deceleration * Time.deltaTime){
+                speed = speed - deceleration * Time.deltaTime;
+            }
+            else if(speed < - deceleration * Time.deltaTime){
+                speed = speed + deceleration * Time.deltaTime;
+            }
+            else{
+                speed = 0;
+            }
+        }
+        rb.velocity = new Vector2(speed, rb.velocity.y);
     }
     void Update(){
 

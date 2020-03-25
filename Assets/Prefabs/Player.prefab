@@ -213,7 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e994092bd7aa2440b5e73ffebbc2d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 0
+  maxSpeed: 10
+  acceleration: 70
+  deceleration: 110
   feetPos: {fileID: 2813430748138243253}
   checkRadius: 0.5
   whatIsGround:
