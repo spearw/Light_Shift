@@ -17,6 +17,10 @@ public class GameController : MonoBehaviour
     
     public PhysicsMaterial2D purpleBouncy;
 
+    public bool redShift = true;
+    public bool greenShift = true;
+    public bool blueShift = true;
+
     IDictionary<string, float> standardBlockDict = new Dictionary<string, float>()
                     {
                         {"layer", 10},
@@ -122,7 +126,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         //Red shift
-        if(Input.GetKeyDown(KeyCode.Alpha1)){
+        if(Input.GetKeyDown(KeyCode.Alpha1) && redShift){
 
             var red = new Color(1, 0.6f, 0.6f);
             Camera.main.backgroundColor = red;
@@ -143,7 +147,7 @@ public class GameController : MonoBehaviour
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
         }
         //Green shift
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
+        if(Input.GetKeyDown(KeyCode.Alpha2) && greenShift){
 
             var green = new Color(0.6f, 1, 0.6f);
             Camera.main.backgroundColor = green;
@@ -164,7 +168,7 @@ public class GameController : MonoBehaviour
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
         }
         //Blue Shift
-        if(Input.GetKeyDown(KeyCode.Alpha3)){
+        if(Input.GetKeyDown(KeyCode.Alpha3) && blueShift){
 
             var blue = new Color(0.4f, 0.6f, 1);
             Camera.main.backgroundColor = blue;
