@@ -214,7 +214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  jumpForce: 10
   feetPos: {fileID: 2813430748138243253}
   checkRadius: 0.5
   whatIsGround:
@@ -223,9 +222,9 @@ MonoBehaviour:
   holdPoint: {fileID: 400545355}
   throwStrength: 14
   throwAngle: 0.8
-  jumpVelocity: 22
+  jumpVelocity: 18
   fallMultiplier: 5
-  lowJumpMultiplier: 10
+  lowJumpMultiplier: 6
 --- !u!1 &2813430747126220113
 GameObject:
   m_ObjectHideFlags: 0
