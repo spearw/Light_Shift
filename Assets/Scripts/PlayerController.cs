@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
 
     public Transform holdPoint;
+    public Transform hand;
     public float throwStrength;
     public float throwAngle;
 
@@ -41,9 +42,8 @@ public class PlayerController : MonoBehaviour
         carriedItem = null;
     }
     void dropItem(){
-        Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
+        carriedItem.transform.position = hand.position;
         isCarrying = false;
-        rbOther.velocity += new Vector2(transform.forward.z * 8, 2 * throwAngle);
         carriedItem = null;
     }
     void pickUpItem(){

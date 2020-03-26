@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public Material purpleMaterial;
     public Material cyanMaterial;
     public Material staticMaterial;
-    
+
     public PhysicsMaterial2D purpleBouncy;
 
     public bool redShift = true;
