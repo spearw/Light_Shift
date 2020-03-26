@@ -112,14 +112,14 @@ public class PlayerController : MonoBehaviour
         }
 
         //Crouch
-        if(Input.GetKeyDown(KeyCode.S) && !isCrouching){
+        if(Input.GetButtonDown("Crouch") && !isCrouching){
             if(isCarrying && carriedItem){
                 dropItem();
             }
             crouch();
         }
 
-        if(Input.GetKeyUp(KeyCode.S) && isCrouching) {
+        if(Input.GetButtonUp("Crouch") && isCrouching) {
             stand();
         }
 
