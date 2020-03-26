@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
 
+    public float terminalVelocity;
+
     private bool isCrouching;
     private bool isCarrying;
     public static GameObject interactableObject;
@@ -68,11 +70,9 @@ public class PlayerController : MonoBehaviour
         moveInput  = Input.GetAxisRaw("Horizontal");
         //moving right
         if ((moveInput > 0)&&(speed < maxSpeed)){
-            Debug.Log("right");
             speed = speed + acceleration * Time.deltaTime;
         } //moving left
         else if ((moveInput < 0)&&(speed > -maxSpeed)){
-            Debug.Log("left");
             speed = speed - acceleration * Time.deltaTime;
         }
         else
@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         rb.velocity = new Vector2(speed, rb.velocity.y);
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
     }
     void Update(){
 
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour
             carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             carriedItem.transform.position = holdPoint.position;
         }
+
 
     }
     void OnTriggerStay2D (Collider2D other) {
