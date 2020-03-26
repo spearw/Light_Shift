@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool Controller;
     private Rigidbody2D rb;
     private float speed = 0;
     [Range(5, 15)]
