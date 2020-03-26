@@ -217,7 +217,7 @@ MonoBehaviour:
   acceleration: 70
   deceleration: 110
   feetPos: {fileID: 2813430748138243253}
-  checkRadius: 0.5
+  checkRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1792
