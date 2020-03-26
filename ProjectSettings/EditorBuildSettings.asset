@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/ExampleScene.unity
     guid: b7c410a6bc998d048ab7f6d75fdfbe40
   - enabled: 1
-    path: Assets/Scenes/Cyan Tutorial.unity
+    path: Assets/Scenes/Blue Levels/Cyan Tutorial.unity
     guid: 25dbc2ac6aabd4673a66afe8ac398943
   m_configObjects: {}
