@@ -126,7 +126,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         //Red shift
-        if(Input.GetKeyDown(KeyCode.Alpha1) && redShift){
+        if(Input.GetButtonDown("RedShift") && redShift){
 
             var red = new Color(1, 0.6f, 0.6f);
             Camera.main.backgroundColor = red;
@@ -147,7 +147,7 @@ public class GameController : MonoBehaviour
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
         }
         //Green shift
-        if(Input.GetKeyDown(KeyCode.Alpha2) && greenShift){
+        if(Input.GetButtonDown("GreenShift") && greenShift){
 
             var green = new Color(0.6f, 1, 0.6f);
             Camera.main.backgroundColor = green;
@@ -168,7 +168,7 @@ public class GameController : MonoBehaviour
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
         }
         //Blue Shift
-        if(Input.GetKeyDown(KeyCode.Alpha3) && blueShift){
+        if(Input.GetButtonDown("BlueShift") && blueShift){
 
             var blue = new Color(0.4f, 0.6f, 1);
             Camera.main.backgroundColor = blue;
@@ -189,7 +189,7 @@ public class GameController : MonoBehaviour
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
         }
         //Generic unshift 
-        if(Input.GetKeyDown(KeyCode.LeftShift)){
+        if(Input.GetButtonDown("UnShift")){
 
             var normalBackground = new Color(0.8f, 0.8f, 0.8f);
             Camera.main.backgroundColor = normalBackground;
