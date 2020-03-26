@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
                     {
                         {"layer", 10},
                         {"pickup?", 1},
-                        {"mass", 35},
+                        {"mass", 6},
                         {"gravity", -0.6f},
                         {"drag", 0.1f}
                     };
