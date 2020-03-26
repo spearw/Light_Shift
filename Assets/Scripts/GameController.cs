@@ -86,7 +86,6 @@ public class GameController : MonoBehaviour
     private GameObject[] cyanBlocks;
     private GameObject[] purpleBlocks;
 
-    // Start is called before the first frame update
     void Start()
     {
         whiteBlocks = GameObject.FindGameObjectsWithTag("WhiteBlockChild");
@@ -111,7 +110,7 @@ public class GameController : MonoBehaviour
             if (blockBlueprint["pickup?"] == 1){
                 block.tag = "pickup";
             }
-            else {block.tag = "Untagged";
+            else {block.tag = "nopickup";
             }
             //optional physics material
             block.GetComponent<BoxCollider2D>().sharedMaterial = physicsMaterial;

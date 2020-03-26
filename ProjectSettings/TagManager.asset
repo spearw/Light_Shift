@@ -13,6 +13,7 @@ TagManager:
   - RedBlockChild
   - WhiteBlockChild
   - CyanBlockChild
+  - nopickup
   layers:
   - Default
   - TransparentFX
