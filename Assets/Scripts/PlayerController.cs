@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Grab
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetButtonDown("Pickup")) {
 
             if(!isCarrying && interactableObject && !isCrouching) {
                 pickUpItem(); 
