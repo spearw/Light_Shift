@@ -143,8 +143,6 @@ public class GameController : MonoBehaviour
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
             //yellow to yellow
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
-            //red to static
-            shift(redBlocks, standardBlockDict, staticMaterial);
         }
         //Green shift
         if(Input.GetButtonDown("GreenShift") && greenShift){
@@ -166,8 +164,6 @@ public class GameController : MonoBehaviour
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
             //cyan to cyan
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
-            //green to static
-            shift(greenBlocks, standardBlockDict, staticMaterial);
         }
         //Blue Shift
         if(Input.GetButtonDown("BlueShift") && blueShift){
@@ -189,8 +185,6 @@ public class GameController : MonoBehaviour
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
             //purple to purple
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
-            //blue to static
-            shift(blueBlocks, standardBlockDict, staticMaterial);
         }
         //Generic unshift 
         if(Input.GetButtonDown("UnShift")){
