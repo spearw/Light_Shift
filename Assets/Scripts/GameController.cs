@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using UnityEngine.Experimental.Rendering.LWRP;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour
     private GameObject[] yellowBlocks;
     private GameObject[] cyanBlocks;
     private GameObject[] purpleBlocks;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D globalLight;
 
     void Start()
     {
@@ -96,13 +97,15 @@ public class GameController : MonoBehaviour
         purpleBlocks = GameObject.FindGameObjectsWithTag("PurpleBlockChild");
     }
 
-    void shift(GameObject[] blocks, IDictionary<string, float> blockBlueprint, Material newMaterial, PhysicsMaterial2D physicsMaterial = null){
+    void shift(GameObject[] blocks, IDictionary<string, float> blockBlueprint, Material newMaterial, Color color, PhysicsMaterial2D physicsMaterial = null){
         foreach(GameObject blockChild in blocks){
             var block = blockChild.transform.parent.gameObject;
             var rb = block.GetComponent<Rigidbody2D>();
 
             //color
             block.GetComponent<MeshRenderer>().material = newMaterial;
+            //light color
+            block.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = color;
             //layer
             block.layer = (int)blockBlueprint["layer"];
             //pickup
@@ -127,78 +130,77 @@ public class GameController : MonoBehaviour
         if(Input.GetButtonDown("RedShift") && redShift){
 
             var red = new Color(1, 0.6f, 0.6f);
-            Camera.main.backgroundColor = red;
+            globalLight.color = red;
 
             //standard to red
-            shift(standardBlocks, redBlockDict, redMaterial);
+            shift(standardBlocks, redBlockDict, redMaterial, Color.red);
             //blue to purple
-            shift(blueBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            shift(blueBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
             //green to yellow
-            shift(greenBlocks, yellowBlockDict, yellowMaterial);
+            shift(greenBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
             //red to red
-            shift(redBlocks, redBlockDict, redMaterial);
+            shift(redBlocks, redBlockDict, redMaterial, Color.red);
             //cyan to gray
-            shift(cyanBlocks, standardBlockDict, staticMaterial);
+            shift(cyanBlocks, standardBlockDict, staticMaterial, Color.black);
             //purple to purple
-            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
             //yellow to yellow
-            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
         }
         //Green shift
         if(Input.GetButtonDown("GreenShift") && greenShift){
 
             var green = new Color(0.6f, 1, 0.6f);
-            Camera.main.backgroundColor = green;
+            globalLight.color = green;
 
             //standard to green
-            shift(standardBlocks, greenBlockDict, greenMaterial);
+            shift(standardBlocks, greenBlockDict, greenMaterial, Color.green);
             //red to yellow
-            shift(redBlocks, yellowBlockDict, yellowMaterial);
+            shift(redBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
             //blue to cyan
-            shift(blueBlocks, cyanBlockDict, cyanMaterial);
+            shift(blueBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //green to green
-            shift(greenBlocks, greenBlockDict, greenMaterial);
+            shift(greenBlocks, greenBlockDict, greenMaterial, Color.green);
             //purple to gray
-            shift(purpleBlocks, standardBlockDict, staticMaterial);
+            shift(purpleBlocks, standardBlockDict, staticMaterial, Color.black);
             //yellow to yellow
-            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
             //cyan to cyan
-            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
         }
         //Blue Shift
         if(Input.GetButtonDown("BlueShift") && blueShift){
 
             var blue = new Color(0.4f, 0.6f, 1);
-            Camera.main.backgroundColor = blue;
+            globalLight.color = blue;
 
             //standard to blue
-            shift(standardBlocks, blueBlockDict, blueMaterial);
+            shift(standardBlocks, blueBlockDict, blueMaterial, Color.blue);
             //red to purple
-            shift(redBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            shift(redBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
             //green to cyan
-            shift(greenBlocks, cyanBlockDict, cyanMaterial);
+            shift(greenBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //blue to blue
-            shift(blueBlocks, blueBlockDict, blueMaterial);
+            shift(blueBlocks, blueBlockDict, blueMaterial, Color.blue);
             //yellow to gray
-            shift(yellowBlocks, standardBlockDict, staticMaterial);
+            shift(yellowBlocks, standardBlockDict, staticMaterial, Color.black);
             //cyan to cyan
-            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //purple to purple
-            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
         }
         //Generic unshift 
         if(Input.GetButtonDown("UnShift")){
 
-            var normalBackground = new Color(0.8f, 0.8f, 0.8f);
-            Camera.main.backgroundColor = normalBackground;
+            globalLight.color = Color.white;
 
-            shift(standardBlocks, standardBlockDict, standardMaterial);
-            shift(redBlocks, redBlockDict, redMaterial);
-            shift(blueBlocks, blueBlockDict, blueMaterial);
-            shift(greenBlocks, greenBlockDict, greenMaterial);
-            shift(yellowBlocks, yellowBlockDict, yellowMaterial);
-            shift(cyanBlocks, cyanBlockDict, cyanMaterial);
-            shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            shift(standardBlocks, standardBlockDict, standardMaterial, Color.black);
+            shift(redBlocks, redBlockDict, redMaterial, Color.red);
+            shift(blueBlocks, blueBlockDict, blueMaterial, Color.blue);
+            shift(greenBlocks, greenBlockDict, greenMaterial, Color.green);
+            shift(yellowBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
+            shift(cyanBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
+            shift(purpleBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
         }
     }
 }

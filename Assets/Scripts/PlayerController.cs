@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
     {
         moveInput  = Input.GetAxisRaw("Horizontal");
         //moving right
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
         if ((moveInput > 0)&&(speed < maxSpeed * moveInput)){
             speed = speed + acceleration * Time.deltaTime;
         } //moving left
