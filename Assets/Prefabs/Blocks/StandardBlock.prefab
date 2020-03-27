@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2197513436612039845}
   m_Layer: 0
-  m_Name: WhiteBlock
+  m_Name: StandardBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ PrefabInstance:
     - target: {fileID: 1463839758259750431, guid: 7639cb5423af3db42922e22ed3f5eb22,
         type: 3}
       propertyPath: m_Name
-      value: WhiteBlockBody (1)
+      value: StandardBlockBody (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1485571068674189117, guid: 7639cb5423af3db42922e22ed3f5eb22,
         type: 3}
@@ -97,6 +97,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410806703258228743, guid: 7639cb5423af3db42922e22ed3f5eb22,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4ca110047c46bd4c85153edcd77aa5d, type: 2}
+    - target: {fileID: 4944999232929480252, guid: 7639cb5423af3db42922e22ed3f5eb22,
+        type: 3}
+      propertyPath: m_Name
+      value: StandardBlockChild
+      objectReference: {fileID: 0}
+    - target: {fileID: 4944999232929480252, guid: 7639cb5423af3db42922e22ed3f5eb22,
+        type: 3}
+      propertyPath: m_TagString
+      value: StandardBlockChild
       objectReference: {fileID: 0}
     - target: {fileID: 5848544442940951301, guid: 7639cb5423af3db42922e22ed3f5eb22,
         type: 3}

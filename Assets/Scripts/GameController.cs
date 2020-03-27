@@ -5,15 +5,14 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    public Material whiteMaterial;
-    public Material grayMaterial;
+    public Material standardMaterial;
+    public Material staticMaterial;
     public Material blueMaterial;
     public Material redMaterial;
     public Material yellowMaterial;
     public Material greenMaterial;
     public Material purpleMaterial;
     public Material cyanMaterial;
-    public Material staticMaterial;
 
     public PhysicsMaterial2D purpleBouncy;
 
@@ -78,7 +77,7 @@ public class GameController : MonoBehaviour
                         {"drag", 1}
                     };
 
-    private GameObject[] whiteBlocks;
+    private GameObject[] standardBlocks;
     private GameObject[] blueBlocks;
     private GameObject[] greenBlocks;
     private GameObject[] redBlocks;
@@ -88,7 +87,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        whiteBlocks = GameObject.FindGameObjectsWithTag("WhiteBlockChild");
+        standardBlocks = GameObject.FindGameObjectsWithTag("StandardBlockChild");
         blueBlocks = GameObject.FindGameObjectsWithTag("BlueBlockChild");
         greenBlocks = GameObject.FindGameObjectsWithTag("GreenBlockChild");
         redBlocks = GameObject.FindGameObjectsWithTag("RedBlockChild");
@@ -130,8 +129,8 @@ public class GameController : MonoBehaviour
             var red = new Color(1, 0.6f, 0.6f);
             Camera.main.backgroundColor = red;
 
-            //white to red
-            shift(whiteBlocks, redBlockDict, redMaterial);
+            //standard to red
+            shift(standardBlocks, redBlockDict, redMaterial);
             //blue to purple
             shift(blueBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
             //green to yellow
@@ -139,11 +138,13 @@ public class GameController : MonoBehaviour
             //red to red
             shift(redBlocks, redBlockDict, redMaterial);
             //cyan to gray
-            shift(cyanBlocks, standardBlockDict, grayMaterial);
+            shift(cyanBlocks, standardBlockDict, staticMaterial);
             //purple to purple
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
             //yellow to yellow
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
+            //red to static
+            shift(redBlocks, standardBlockDict, staticMaterial);
         }
         //Green shift
         if(Input.GetButtonDown("GreenShift") && greenShift){
@@ -151,8 +152,8 @@ public class GameController : MonoBehaviour
             var green = new Color(0.6f, 1, 0.6f);
             Camera.main.backgroundColor = green;
 
-            //white to green
-            shift(whiteBlocks, greenBlockDict, greenMaterial);
+            //standard to green
+            shift(standardBlocks, greenBlockDict, greenMaterial);
             //red to yellow
             shift(redBlocks, yellowBlockDict, yellowMaterial);
             //blue to cyan
@@ -160,11 +161,13 @@ public class GameController : MonoBehaviour
             //green to green
             shift(greenBlocks, greenBlockDict, greenMaterial);
             //purple to gray
-            shift(purpleBlocks, standardBlockDict, grayMaterial);
+            shift(purpleBlocks, standardBlockDict, staticMaterial);
             //yellow to yellow
             shift(yellowBlocks, yellowBlockDict, yellowMaterial);
             //cyan to cyan
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
+            //green to static
+            shift(greenBlocks, standardBlockDict, staticMaterial);
         }
         //Blue Shift
         if(Input.GetButtonDown("BlueShift") && blueShift){
@@ -172,8 +175,8 @@ public class GameController : MonoBehaviour
             var blue = new Color(0.4f, 0.6f, 1);
             Camera.main.backgroundColor = blue;
 
-            //white to blue
-            shift(whiteBlocks, blueBlockDict, blueMaterial);
+            //standard to blue
+            shift(standardBlocks, blueBlockDict, blueMaterial);
             //red to purple
             shift(redBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
             //green to cyan
@@ -181,11 +184,13 @@ public class GameController : MonoBehaviour
             //blue to blue
             shift(blueBlocks, blueBlockDict, blueMaterial);
             //yellow to gray
-            shift(yellowBlocks, standardBlockDict, grayMaterial);
+            shift(yellowBlocks, standardBlockDict, staticMaterial);
             //cyan to cyan
             shift(cyanBlocks, cyanBlockDict, cyanMaterial);
             //purple to purple
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, purpleBouncy);
+            //blue to static
+            shift(blueBlocks, standardBlockDict, staticMaterial);
         }
         //Generic unshift 
         if(Input.GetButtonDown("UnShift")){
@@ -193,7 +198,7 @@ public class GameController : MonoBehaviour
             var normalBackground = new Color(0.8f, 0.8f, 0.8f);
             Camera.main.backgroundColor = normalBackground;
 
-            shift(whiteBlocks, standardBlockDict, whiteMaterial);
+            shift(standardBlocks, standardBlockDict, standardMaterial);
             shift(redBlocks, redBlockDict, redMaterial);
             shift(blueBlocks, blueBlockDict, blueMaterial);
             shift(greenBlocks, greenBlockDict, greenMaterial);
