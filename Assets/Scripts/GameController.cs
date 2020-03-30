@@ -140,8 +140,8 @@ public class GameController : MonoBehaviour
             shift(greenBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
             //red to red
             shift(redBlocks, redBlockDict, redMaterial, Color.red);
-            //cyan to gray
-            shift(cyanBlocks, standardBlockDict, staticMaterial, Color.black);
+            //cyan to white
+            shift(cyanBlocks, standardBlockDict, staticMaterial, Color.white);
             //purple to purple
             shift(purpleBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
             //yellow to yellow
@@ -161,8 +161,8 @@ public class GameController : MonoBehaviour
             shift(blueBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //green to green
             shift(greenBlocks, greenBlockDict, greenMaterial, Color.green);
-            //purple to gray
-            shift(purpleBlocks, standardBlockDict, staticMaterial, Color.black);
+            //purple to white
+            shift(purpleBlocks, standardBlockDict, staticMaterial, Color.white);
             //yellow to yellow
             shift(yellowBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
             //cyan to cyan
@@ -182,8 +182,8 @@ public class GameController : MonoBehaviour
             shift(greenBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //blue to blue
             shift(blueBlocks, blueBlockDict, blueMaterial, Color.blue);
-            //yellow to gray
-            shift(yellowBlocks, standardBlockDict, staticMaterial, Color.black);
+            //yellow to white
+            shift(yellowBlocks, standardBlockDict, staticMaterial, Color.white);
             //cyan to cyan
             shift(cyanBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
             //purple to purple
