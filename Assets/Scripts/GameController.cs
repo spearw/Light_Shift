@@ -26,7 +26,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 10},
                         {"gravity", 5},
-                        {"drag", 1}
+                        {"drag", 1},
+                        {"lockRotation", 0}
                     };
     IDictionary<string, float> blueBlockDict = new Dictionary<string, float>()
                     {
@@ -34,7 +35,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 6},
                         {"gravity", -0.6f},
-                        {"drag", 0.1f}
+                        {"drag", 0.1f},
+                        {"lockRotation", 0}
                     };
     IDictionary<string, float> greenBlockDict = new Dictionary<string, float>()
                     {
@@ -42,7 +44,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 0},
                         {"mass", 10},
                         {"gravity", 5},
-                        {"drag", 1}
+                        {"drag", 1},
+                        {"lockRotation", 0}
                     };
     IDictionary<string, float> redBlockDict = new Dictionary<string, float>()
                     {
@@ -50,7 +53,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 1},
                         {"gravity", 0},
-                        {"drag", 0.1f}
+                        {"drag", 0.1f},
+                        {"lockRotation", 0}
                     };
     IDictionary<string, float> yellowBlockDict = new Dictionary<string, float>()
                     {
@@ -58,7 +62,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 5},
                         {"gravity", 0},
-                        {"drag", 1000}
+                        {"drag", 1000},
+                        {"lockRotation", 1}
                     };
     IDictionary<string, float> cyanBlockDict = new Dictionary<string, float>()
                     {
@@ -66,7 +71,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 10},
                         {"gravity", 5},
-                        {"drag", 1}
+                        {"drag", 1},
+                        {"lockRotation", 0}
                     };
     IDictionary<string, float> purpleBlockDict = new Dictionary<string, float>()
                     {
@@ -74,7 +80,8 @@ public class GameController : MonoBehaviour
                         {"pickup?", 1},
                         {"mass", 10},
                         {"gravity", 5},
-                        {"drag", 1}
+                        {"drag", 1},
+                        {"lockRotation", 1}
                     };
 
     private GameObject[] standardBlocks;
@@ -113,6 +120,13 @@ public class GameController : MonoBehaviour
                 block.tag = "pickup";
             }
             else {block.tag = "nopickup";
+            }
+            //freeze rotation
+            if (blockBlueprint["lockRotation"] == 1){
+                rb.angularDrag = 1000;
+            }
+            else {
+                rb.angularDrag = 0.05f;
             }
             //optional physics material
             block.GetComponent<BoxCollider2D>().sharedMaterial = physicsMaterial;
