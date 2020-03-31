@@ -17,6 +17,7 @@ TagManager:
   - WhiteBlockChild
   - Light
   - Boundary
+  - HeadBump
   layers:
   - Default
   - TransparentFX

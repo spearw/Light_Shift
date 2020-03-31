@@ -26,16 +26,16 @@ public class PlayerController : MonoBehaviour
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-
     public float terminalVelocity;
-
+    private HeadBumpTrigger headBumpTrigger;
     private bool isCrouching;
+    private GrabHand grabHand;
     private bool isCarrying;
-    public bool isDropClear = true;
-    public static GameObject interactableObject;
     public static GameObject carriedItem;
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
+        headBumpTrigger =  gameObject.GetComponentInChildren<HeadBumpTrigger>();
+        grabHand =  gameObject.GetComponentInChildren<GrabHand>();
     }
 
     void throwItem(){
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         carriedItem = null;
     }
     void dropItem(){
-        if (isDropClear){
+        if (grabHand.isDropClear){
             carriedItem.transform.position = hand.position;
         }
         else {
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     }
     void pickUpItem(){
         isCarrying = true;
-        carriedItem = interactableObject;
+        carriedItem = grabHand.interactableObject;
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
     }
@@ -69,10 +69,14 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2 (0.5f, 2f);
     }
     void stand(){
-        isCrouching = false;
-        gameObject.transform.localScale += new Vector3(-0.3f, 0.5f, 0f);
-        gameObject.transform.localPosition += new Vector3(0f, 0.5f, 0f);
-        gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2 (1f, 2f);
+        if (headBumpTrigger.HeadBump){
+
+        }else {
+            isCrouching = false;
+            gameObject.transform.localScale += new Vector3(-0.3f, 0.5f, 0f);
+            gameObject.transform.localPosition += new Vector3(0f, 0.5f, 0f);
+            gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2 (1f, 2f);
+        }
     }
 
     void FixedUpdate()
@@ -113,7 +117,16 @@ public class PlayerController : MonoBehaviour
 
         //Jump
         if(isGrounded == true && Input.GetButtonDown("Jump")){
-            GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+            if (isCrouching && headBumpTrigger.HeadBump == false){
+                stand();
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+            }
+            else if (isCrouching == false){
+                GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+            }
+            else{
+                //can't jump
+            }
         }
         if(rb.velocity.y < 0) {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -121,23 +134,30 @@ public class PlayerController : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-        //Crouch
-        if(Input.GetButtonDown("Crouch") && !isCrouching){
-            if(isCarrying && carriedItem){
-                dropItem();
-            }
-            crouch();
-        }
+        if(Input.GetButtonDown("Crouch")) {
 
-        if(Input.GetButtonUp("Crouch") && isCrouching) {
-            stand();
+            if (isCrouching){
+                stand();
+            }
+            else{
+                if(isCarrying && carriedItem){
+                    dropItem();
+                }
+                else{
+                    crouch();
+                }
+            }
         }
 
         //Grab
         if (Input.GetButtonDown("Pickup")) {
 
-            if(!isCarrying && interactableObject && !isCrouching) {
+            if(!isCarrying && grabHand.interactableObject && !isCrouching) {
                 pickUpItem(); 
+            }
+            else if(!isCarrying && grabHand.interactableObject && !headBumpTrigger.HeadBump){
+                stand();
+                pickUpItem();
             }
             else if(isCarrying && carriedItem) {
                 throwItem();
@@ -150,24 +170,5 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    }
-    void OnTriggerStay2D (Collider2D other) {
-        //set this tag to limit what can be picked up
-        if (other.gameObject.CompareTag("pickup")){
-            interactableObject = other.gameObject;
-        }
-        else if(other.gameObject.CompareTag("Boundary")){
-
-        }
-        else {
-            isDropClear = false;
-        }
-    }
-    void OnTriggerEnter2D (Collider2D other){
-        isDropClear = false;
-    }
-    void OnTriggerExit2D (Collider2D other) {
-        interactableObject = null;
-        isDropClear = true;
     }
 }

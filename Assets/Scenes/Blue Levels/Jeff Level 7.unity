@@ -276,6 +276,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 76026962429853080, guid: 9108d38b5b671b1439d6fc3d4d73df2f,
+        type: 3}
+      propertyPath: m_LightVolumeOpacity
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2931077283624510769, guid: 9108d38b5b671b1439d6fc3d4d73df2f,
         type: 3}
       propertyPath: m_Name
@@ -345,6 +350,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1973069757, guid: 9e4f2ba1ffea71f489bfa16c1be7a396, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973069757, guid: 9e4f2ba1ffea71f489bfa16c1be7a396, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1973069757, guid: 9e4f2ba1ffea71f489bfa16c1be7a396, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1229014512572907067, guid: 9e4f2ba1ffea71f489bfa16c1be7a396,
         type: 3}
       propertyPath: m_LocalPosition.x
