@@ -14,7 +14,9 @@ public class OutOfBounds : MonoBehaviour
         }
         if (other.gameObject.CompareTag("pickup") || other.gameObject.CompareTag("nopickup")){
             other.transform.position = other.transform.parent.position;
+            other.transform.rotation = new Quaternion(0, 0, 0, 0);
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            other.GetComponent<Rigidbody2D>().angularVelocity = 0;
         }
     }
 
