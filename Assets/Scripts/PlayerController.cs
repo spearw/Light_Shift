@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isCrouching;
     private bool isCarrying;
+    public bool isDropClear = true;
     public static GameObject interactableObject;
     public static GameObject carriedItem;
     void Awake(){
@@ -40,17 +41,26 @@ public class PlayerController : MonoBehaviour
     void throwItem(){
         Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
+        carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         rbOther.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
         carriedItem = null;
     }
     void dropItem(){
-        carriedItem.transform.position = hand.position;
+        if (isDropClear){
+            carriedItem.transform.position = hand.position;
+        }
+        else {
+            carriedItem.GetComponent<Rigidbody2D>().velocity += new Vector2(0, throwStrength * 0.4f);
+        }
+        carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         isCarrying = false;
         carriedItem = null;
     }
     void pickUpItem(){
         isCarrying = true;
         carriedItem = interactableObject;
+        carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
     }
     void crouch(){
         isCrouching = true;
@@ -146,8 +156,18 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("pickup")){
             interactableObject = other.gameObject;
         }
+        else if(other.gameObject.CompareTag("Boundary")){
+
+        }
+        else {
+            isDropClear = false;
+        }
+    }
+    void OnTriggerEnter2D (Collider2D other){
+        isDropClear = false;
     }
     void OnTriggerExit2D (Collider2D other) {
         interactableObject = null;
+        isDropClear = true;
     }
 }

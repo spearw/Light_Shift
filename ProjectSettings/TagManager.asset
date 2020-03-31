@@ -16,6 +16,7 @@ TagManager:
   - StandardBlockChild
   - WhiteBlockChild
   - Light
+  - Boundary
   layers:
   - Default
   - TransparentFX

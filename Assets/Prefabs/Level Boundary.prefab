@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1589554443371719838}
   m_Layer: 11
   m_Name: Level Boundary
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c88a2dfccca41d48a3df7fb145b75a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
 --- !u!61 &1589554443371719838
 BoxCollider2D:
   m_ObjectHideFlags: 0
