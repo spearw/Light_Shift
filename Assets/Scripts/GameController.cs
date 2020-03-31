@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
                     {
                         {"layer", 10},
                         {"pickup?", 0},
-                        {"mass", 10},
+                        {"mass", 100},
                         {"gravity", 5},
                         {"drag", 1},
                         {"lockRotation", 0}
