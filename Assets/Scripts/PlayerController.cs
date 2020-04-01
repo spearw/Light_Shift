@@ -89,6 +89,12 @@ public class PlayerController : MonoBehaviour
         else if ((moveInput < 0)&&(speed > -maxSpeed * -moveInput)){
             speed = speed - acceleration * Time.deltaTime;
         }
+        else if((moveInput > 0) && (speed == maxSpeed)){
+            //leave speed
+        }
+        else if((moveInput < 0) && (speed == -maxSpeed)){
+            //leave speed
+        }
         else
         {
             if(speed > deceleration * Time.deltaTime){
@@ -101,6 +107,7 @@ public class PlayerController : MonoBehaviour
                 speed = 0;
             }
         }
+        speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
         rb.velocity = new Vector2(speed, rb.velocity.y);
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
     }
