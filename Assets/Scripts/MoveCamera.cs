@@ -16,7 +16,7 @@ public class MoveCamera : MonoBehaviour
     void LateUpdate()
     {
         Vector3 relativePos = Camera.main.WorldToViewportPoint(target.position);
-        Vector3 delta = target.position - Camera.main.ViewportToWorldPoint (new Vector3(0.5f, 0.5f, relativePos.z));
+        Vector3 delta = target.position - Camera.main.ViewportToWorldPoint (new Vector3(0.5f, 0.4f, relativePos.z));
         Vector3 destination = transform.position + delta;
         transform.position = Vector3.SmoothDamp (transform.position, destination, ref velocity, dampTime);
         
