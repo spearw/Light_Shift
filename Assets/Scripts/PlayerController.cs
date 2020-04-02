@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private bool pickupButtonPressed;
     private GrabHand grabHand;
+    private int carriedItemLayer;
     private bool isCarrying;
     public static GameObject carriedItem;
     void Awake(){
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
         isCarrying = false;
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         rbOther.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
+        carriedItem.layer = carriedItemLayer;
         carriedItem = null;
     }
     void dropItem(){
@@ -57,12 +59,15 @@ public class PlayerController : MonoBehaviour
             carriedItem.GetComponent<Rigidbody2D>().velocity += new Vector2(0, throwStrength * 0.4f);
         }
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        carriedItem.layer = carriedItemLayer;
         isCarrying = false;
         carriedItem = null;
     }
     void pickUpItem(){
         isCarrying = true;
         carriedItem = grabHand.interactableObject;
+        carriedItemLayer = carriedItem.layer;
+        carriedItem.layer = 12;
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
     }
@@ -188,7 +193,5 @@ public class PlayerController : MonoBehaviour
             carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             carriedItem.transform.position = holdPoint.position;
         }
-
-
     }
 }
