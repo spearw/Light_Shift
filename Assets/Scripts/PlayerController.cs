@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float throwStrength;
     public float throwAngle;
 
+    private bool jumpButtonPressed;
     [Range(10,30)]
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
@@ -81,13 +82,25 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+
+    }
+    void Update(){
+
         moveInput  = Input.GetAxisRaw("Horizontal");
+
+        //Rotate if moving other direction
+        if(moveInput > 0){ 
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        } else if(moveInput < 0){
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+
         //moving right
         if ((moveInput > 0)&&(speed < maxSpeed * moveInput)){
             speed = speed + acceleration * Time.deltaTime;
         } //moving left
         else if ((moveInput < 0)&&(speed > -maxSpeed * -moveInput)){
-            speed = speed - acceleration * Time.deltaTime;
+            speed = speed + -acceleration * Time.deltaTime;
         }
         else if((moveInput > 0) && (speed == maxSpeed)){
             //leave speed
@@ -98,9 +111,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             if(speed > deceleration * Time.deltaTime){
-                speed = speed - deceleration * Time.deltaTime;
+                speed = speed + -deceleration * Time.deltaTime;
             }
-            else if(speed < - deceleration * Time.deltaTime){
+            else if(speed < -deceleration * Time.deltaTime){
                 speed = speed + deceleration * Time.deltaTime;
             }
             else{
@@ -109,21 +122,19 @@ public class PlayerController : MonoBehaviour
         }
         speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
         rb.velocity = new Vector2(speed, rb.velocity.y);
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
-    }
-    void Update(){
+        //rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
 
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
-        //Rotate if moving other direction
-        if(moveInput > 0){ 
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        } else if(moveInput < 0){
-            transform.eulerAngles = new Vector3(0, 180, 0);
+
+        if (Input.GetButtonDown("Jump")){
+            jumpButtonPressed = true;
+        }
+        if (Input.GetButtonUp("Jump")){
+            jumpButtonPressed = false;
         }
 
-        //Jump
-        if(isGrounded == true && Input.GetButtonDown("Jump")){
+        if(jumpButtonPressed & isGrounded){
             if (isCrouching && headBumpTrigger.HeadBump == false){
                 stand();
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
@@ -137,7 +148,7 @@ public class PlayerController : MonoBehaviour
         }
         if(rb.velocity.y < 0) {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        } else if (rb.velocity.y > 0 && !Input.GetButton("Jump")){
+        } else if (rb.velocity.y > 0 && !jumpButtonPressed){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
