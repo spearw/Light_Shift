@@ -28,8 +28,11 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public float terminalVelocity;
+
     private HeadBumpTrigger headBumpTrigger;
     private bool isCrouching;
+
+    private bool pickupButtonPressed;
     private GrabHand grabHand;
     private bool isCarrying;
     public static GameObject carriedItem;
@@ -82,11 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
-    }
-    void Update(){
-
-        moveInput  = Input.GetAxisRaw("Horizontal");
+        //movement
 
         //Rotate if moving other direction
         if(moveInput > 0){ 
@@ -122,18 +121,9 @@ public class PlayerController : MonoBehaviour
         }
         speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
         rb.velocity = new Vector2(speed, rb.velocity.y);
-        //rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
 
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-
-
-        if (Input.GetButtonDown("Jump")){
-            jumpButtonPressed = true;
-        }
-        if (Input.GetButtonUp("Jump")){
-            jumpButtonPressed = false;
-        }
-
+        //jumping
         if(jumpButtonPressed & isGrounded){
             if (isCrouching && headBumpTrigger.HeadBump == false){
                 stand();
@@ -151,6 +141,19 @@ public class PlayerController : MonoBehaviour
         } else if (rb.velocity.y > 0 && !jumpButtonPressed){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+    }
+    void Update(){
+
+        moveInput  = Input.GetAxisRaw("Horizontal");
+
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+
+        if (Input.GetButtonDown("Jump")){
+            jumpButtonPressed = true;
+        }
+        if (Input.GetButtonUp("Jump")){
+            jumpButtonPressed = false;
+        }
 
         if(Input.GetButtonDown("Crouch")) {
 
@@ -166,7 +169,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
         //Grab
         if (Input.GetButtonDown("Pickup")) {
 
