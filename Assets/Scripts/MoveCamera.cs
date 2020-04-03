@@ -7,10 +7,9 @@ public class MoveCamera : MonoBehaviour
 
     public Transform target;
     public float dampTime = 0.6f;
-
     private float xPos = 0.5f;
     public PlayerController playerController;
-    private Vector3 velocity;
+    private Vector3 velocity = Vector3.zero;
     private bool lookUpPressed;
     private bool lookDownPressed;
 
@@ -21,9 +20,6 @@ public class MoveCamera : MonoBehaviour
         transform.position = Vector3.SmoothDamp (transform.position, destination, ref velocity, dampTime);
     }
 
-    void Awake(){
-        velocity = new Vector3(playerController.maxSpeed, playerController.terminalVelocity, 0f);
-    }
     void Start(){
         transform.position = new Vector3 (target.position.x, target.position.y, transform.position.z);
     }

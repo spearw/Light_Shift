@@ -58,9 +58,9 @@ InputManager:
     descriptiveName: Controller Movement
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: s
+    positiveButton: x
     altNegativeButton: 
-    altPositiveButton: down
+    altPositiveButton: right ctrl
     gravity: 3
     dead: 0.2
     sensitivity: 1
@@ -74,9 +74,9 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left ctrl
+    positiveButton: s
     altNegativeButton: 
-    altPositiveButton: right ctrl
+    altPositiveButton: down
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
