@@ -133,11 +133,9 @@ public class PlayerController : MonoBehaviour
             if (isCrouching && headBumpTrigger.HeadBump == false){
                 stand();
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
-                jumpButtonPressed = false;
             }
             else if (isCrouching == false){
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
-                jumpButtonPressed = false;
             }
             else{
                 //can't jump
