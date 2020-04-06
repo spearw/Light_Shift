@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
                         {"mass", 6},
                         {"gravity", -0.6f},
                         {"drag", 0.1f},
-                        {"lockRotation", 0}
+                        {"lockRotation", 1}
                     };
     IDictionary<string, float> greenBlockDict = new Dictionary<string, float>()
                     {
