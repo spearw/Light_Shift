@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float throwAngle;
 
     private bool jumpButtonPressed;
+    private bool startJump;
     [Range(10,30)]
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
@@ -63,8 +64,10 @@ public class PlayerController : MonoBehaviour
     void pickUpItem(){
         isCarrying = true;
         carriedItem = grabHand.interactableObject;
+        carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
+        carriedItem.GetComponent<Rigidbody2D>().position = holdPoint.transform.position;
     }
     void crouch(){
         isCrouching = true;
@@ -80,6 +83,22 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.localScale += new Vector3(-0.3f, 0.5f, 0f);
             gameObject.transform.localPosition += new Vector3(0f, 0.5f, 0f);
             gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2 (1f, 2f);
+        }
+    }
+
+    void moveCarriedItem(){
+        var carriedItemRB = carriedItem.GetComponent<Rigidbody2D>();
+        var holdPoint2D = new Vector2(holdPoint.position.x, holdPoint.position.y);
+
+        carriedItemRB.MovePosition(holdPoint2D);
+
+        Vector2 delta = carriedItemRB.position - holdPoint2D;
+        Debug.Log("delta: " + delta);
+
+        if (delta.magnitude > 0.3){
+            carriedItemRB.constraints = RigidbodyConstraints2D.None;
+            isCarrying = false;
+            carriedItem = null;
         }
     }
 
@@ -124,13 +143,15 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, terminalVelocity);
 
         //jumping
-        if(jumpButtonPressed & isGrounded){
+        if(startJump & isGrounded){
             if (isCrouching && headBumpTrigger.HeadBump == false){
                 stand();
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+                startJump = false;
             }
             else if (isCrouching == false){
                 GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
+                startJump = false;
             }
             else{
                 //can't jump
@@ -144,8 +165,7 @@ public class PlayerController : MonoBehaviour
 
         //move carried item
         if (carriedItem != null){
-            carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            carriedItem.transform.position = holdPoint.position;
+            moveCarriedItem();
         }
     }
     void Update(){
@@ -157,8 +177,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump")){
             jumpButtonPressed = true;
         }
+        if (Input.GetButtonDown("Jump") && isGrounded){
+            startJump = true;
+        }
         if (Input.GetButtonUp("Jump")){
             jumpButtonPressed = false;
+            startJump = false;
         }
 
         if(Input.GetButtonDown("Crouch")) {
