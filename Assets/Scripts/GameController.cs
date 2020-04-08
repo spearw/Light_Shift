@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
             }
             //freeze rotation
             if (blockBlueprint["lockRotation"] == 1){
-                carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
+                rb.transform.rotation = new Quaternion(0, 0, 0, 0);
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             else {
