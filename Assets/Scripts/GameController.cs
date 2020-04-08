@@ -102,6 +102,15 @@ public class GameController : MonoBehaviour
         yellowBlocks = GameObject.FindGameObjectsWithTag("YellowBlockChild");
         cyanBlocks = GameObject.FindGameObjectsWithTag("CyanBlockChild");
         purpleBlocks = GameObject.FindGameObjectsWithTag("PurpleBlockChild");
+
+        //ensures blocks are initialized correctly
+        shift(standardBlocks, standardBlockDict, standardMaterial, Color.black);
+        shift(redBlocks, redBlockDict, redMaterial, Color.red);
+        shift(blueBlocks, blueBlockDict, blueMaterial, Color.blue);
+        shift(greenBlocks, greenBlockDict, greenMaterial, Color.green);
+        shift(yellowBlocks, yellowBlockDict, yellowMaterial, Color.yellow);
+        shift(cyanBlocks, cyanBlockDict, cyanMaterial, Color.cyan);
+        shift(purpleBlocks, purpleBlockDict, purpleMaterial, Color.magenta, purpleBouncy);
     }
 
     void shift(GameObject[] blocks, IDictionary<string, float> blockBlueprint, Material newMaterial, Color color, PhysicsMaterial2D physicsMaterial = null){
@@ -123,10 +132,10 @@ public class GameController : MonoBehaviour
             }
             //freeze rotation
             if (blockBlueprint["lockRotation"] == 1){
-                rb.angularDrag = 1000;
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             else {
-                rb.angularDrag = 0.05f;
+                rb.constraints = RigidbodyConstraints2D.None;
             }
             //optional physics material
             block.GetComponent<BoxCollider2D>().sharedMaterial = physicsMaterial;
