@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private bool pickupButtonPressed;
     private GrabHand grabHand;
     private bool isCarrying;
+    private RigidbodyConstraints2D previousConstraints;
     public static GameObject carriedItem;
     void Awake(){
         rb = GetComponent<Rigidbody2D>();
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour
     void throwItem(){
         Rigidbody2D rbOther = carriedItem.GetComponent<Rigidbody2D>();
         isCarrying = false;
-        carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        carriedItem.GetComponent<Rigidbody2D>().constraints = previousConstraints;
         rbOther.velocity += new Vector2(transform.forward.z * throwStrength, throwStrength * throwAngle);
         carriedItem = null;
     }
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
         else {
             carriedItem.GetComponent<Rigidbody2D>().velocity += new Vector2(0, throwStrength * 0.4f);
         }
-        carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        carriedItem.GetComponent<Rigidbody2D>().constraints = previousConstraints;
         isCarrying = false;
         carriedItem = null;
     }
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
         isCarrying = true;
         carriedItem = grabHand.interactableObject;
         carriedItem.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        previousConstraints = carriedItem.GetComponent<Rigidbody2D>().constraints;
         carriedItem.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         carriedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
         carriedItem.GetComponent<Rigidbody2D>().position = holdPoint.transform.position;
